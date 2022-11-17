@@ -19,7 +19,7 @@ public class BaseElement : IWebElement, IWrapsElement
     public BaseElement(By locator)
     {
         this.locator = locator;
-        int.TryParse(AppConfigReader.Timeout, out waitingTime);
+        int.TryParse(ConfigurationReader.Timeout, out waitingTime);
     }
 
     public string TagName

@@ -39,7 +39,7 @@ public class DriverHelper
 
     private static void InitParameters()
     {
-        Enum.TryParse(AppConfigReader.Browser, out browserType);
+        Enum.TryParse(ConfigurationReader.Browser.ToUpper(), out browserType);
         driver = DriverFactory.GetWebDriver(browserType);
     }
 }
