@@ -11,7 +11,7 @@ public class ActionHelper
 
     private static ILog Log
     {
-        get { return LogManager.GetLogger("ActionHelper"); }
+        get => LogManager.GetLogger("ActionHelper");
     }
 
     public static Actions GetActions()
