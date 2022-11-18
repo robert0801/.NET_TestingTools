@@ -177,6 +177,9 @@ ipch/
 *.vspx
 *.sap
 
+# Visual Studio Code
+*.vscode
+
 # Visual Studio Trace Files
 *.e2e
 
