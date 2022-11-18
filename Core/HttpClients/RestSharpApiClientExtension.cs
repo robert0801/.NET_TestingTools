@@ -8,7 +8,7 @@ namespace Core.HttpClients
     {
         private static ILog Log
         {
-            get => LogManager.GetLogger("RestSharpApiClientExtension" + Thread.CurrentThread.ManagedThreadId);
+            get => LogManager.GetLogger("RestSharpApiClientExtension");
         }
 
         public static RestResponse GetWithLogs(this RestClient client, RestRequest request)
