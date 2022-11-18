@@ -1,0 +1,1 @@
+[![Automated-Testing-Framework](https://github.com/robert0801/.NET_TestingTools/actions/workflows/testing.yml/badge.svg)](https://github.com/robert0801/.NET_TestingTools/actions/workflows/testing.yml)
