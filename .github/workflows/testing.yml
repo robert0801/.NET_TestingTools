@@ -30,6 +30,9 @@ jobs:
 
     - name: Setup Google Chrome
       uses: browser-actions/setup-chrome@latest
+
+    - name: Running Google Chrome
+      run: chrome --version
         
     - name: Restore dependencies
       run: dotnet restore
