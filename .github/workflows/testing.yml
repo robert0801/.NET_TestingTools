@@ -5,9 +5,9 @@ name: Automated-Testing-Framework
 
 on:  
   push:
-    branches: [ "main" ]
+    branches: [ "main", "Github-Action-Temp" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "Github-Action-Temp" ]
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
