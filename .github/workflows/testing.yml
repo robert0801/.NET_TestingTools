@@ -7,9 +7,12 @@ on:
   workflow_dispatch:
     inputs:
       Browser:
-        description: "Please, specify browser type (Chrome or Firefox)"
+        type: choice
+        description: "Choose the browser type"
         required: true
-        default: "Chrome"
+        options:
+        - "Chrome"
+        - "Firefox"
       Timeout:
         description: "Please, specify time for waiting Web-Elements"
         required: true
@@ -43,34 +46,32 @@ jobs:
     - name: Setup Google Chrome
       uses: browser-actions/setup-chrome@latest
 
-    - name: Running Google Chrome
-      run: chrome --version
+    - name: Setup Firefox
+      uses: browser-actions/setup-firefox@latest
         
     - name: Restore dependencies
       run: dotnet restore
       
     - name: Build
       run: dotnet build --no-restore
-      
-    - name: Print variables
-      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ inputs.Browser }}, Timeout is ${{ inputs.Timeout }}"
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
       with:
         filename: '${{ github.workspace }}/Tests/Configuration.json'
         key: 'Browser'
-        value: '${{ inputs.Browser }}'
+        value: '${{ github.event.inputs.Browser }}'
         
     - name: Edit Timeout value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
       with:
         filename: '${{ github.workspace }}/Tests/Configuration.json'
         key: 'Timeout'
-        value: '${{ inputs.Timeout }}'
+        value: '${{ github.event.inputs.Timeout }}'
 
     - name: Run Api Tests
       run: dotnet test --no-build --verbosity normal --filter TestCategory="ApiTest"
 
     - name: Run UI Tests
-      run: dotnet test --no-build --verbosity normal --filter TestCategory!="ApiTest"
+      if: always()
+      run: dotnet test --no-build --verbosity normal --filter TestCategory!="ApiTest
