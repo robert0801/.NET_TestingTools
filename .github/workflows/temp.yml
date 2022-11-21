@@ -5,9 +5,11 @@ name: Webdriver-Restsharp-Temp
 
 on:  
   push:
-    branches: [ "Github-Action-Temp" ]
+    branches: 
+      - 'Github-Action-Temp'
   pull_request:
-    branches: [ "Github-Action-Temp" ]
+    branches:
+      - 'Github-Action-Temp'
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
