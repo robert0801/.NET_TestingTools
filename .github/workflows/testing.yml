@@ -45,17 +45,14 @@ jobs:
     - name: Setup Google Chrome
       uses: browser-actions/setup-chrome@latest
 
-    - name: Running Google Chrome
-      run: chrome --version
+    - name: Setup Firefox
+      uses: browser-actions/setup-firefox@latest
         
     - name: Restore dependencies
       run: dotnet restore
       
     - name: Build
       run: dotnet build --no-restore
-      
-    - name: Print variables
-      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ github.event.inputs.Browser }}, Timeout is ${{ github.event.inputs.Timeout }}"
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
@@ -75,4 +72,5 @@ jobs:
       run: dotnet test --no-build --verbosity normal --filter TestCategory="ApiTest"
 
     - name: Run UI Tests
-      run: dotnet test --no-build --verbosity normal --filter TestCategory!="ApiTest"
+      if: always()
+      run: dotnet test --no-build --verbosity normal --filter TestCategory!="ApiTest
