@@ -19,7 +19,7 @@ namespace Tests.UiTests
             aboutContext.ScrollToFactsheetSection();
             aboutContext.ClickDownloadBtn();
 
-            Assert.True(aboutContext.IsFileExist(downloadFolder + expectedFileName), "Expected file doesn't exist in expected folder or has incorrect name");
+            Assert.True(aboutContext.IsFileExist(downloadFolder + expectedFileName), "Expected file doesn't exist in expected folder or has incorrect name.");
         }
     }
 }
