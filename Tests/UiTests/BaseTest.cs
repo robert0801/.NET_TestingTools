@@ -48,13 +48,13 @@ namespace Tests.UiTests
 
         private void setUpDirForSavingFiles()
         {
-            if (!Directory.Exists(DriverFactory.FolderForDownloadingFiles))
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + DriverFactory.FolderForDownloadingFiles))
             {
-                Directory.CreateDirectory(DriverFactory.FolderForDownloadingFiles);
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + DriverFactory.FolderForDownloadingFiles);
             }
             else
             {
-                var allFiles = Directory.GetFiles(DriverFactory.FolderForDownloadingFiles);
+                var allFiles = Directory.GetFiles(Directory.GetCurrentDirectory() + DriverFactory.FolderForDownloadingFiles);
                 foreach (var file in allFiles)
                 {
                     File.Delete(file);

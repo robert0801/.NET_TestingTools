@@ -1,6 +1,7 @@
 using Core.BrowserUtils;
 using Business.ApplicationInterface;
 using OpenQA.Selenium;
+using Core;
 
 namespace Business.Business;
 
@@ -15,8 +16,8 @@ public class CareerContext : BaseContext<CareerPage>
     {
         Log.Info($"Choosing {location} for location dropdown.");
         page.LocationDropdown.Click();
-        var exepectedLocation = DriverHelper.GetDriver().FindElement(By.XPath(string.Format(page.OptionInLocationDropdown, location)));
-        ActionHelper.GetActions().MoveToElement(exepectedLocation).Perform();
+        BaseElement exepectedLocation = new BaseElement(By.XPath(string.Format(page.OptionInLocationDropdown, location)));
+        JsExecutorHelper.GetJsExecutor().ExecuteScript("arguments[0].scrollIntoView(true);", exepectedLocation);
         exepectedLocation.Click();
     }
 

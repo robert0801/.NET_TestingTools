@@ -8,9 +8,7 @@ namespace Core.BrowserUtils;
 
 public class DriverFactory
 {
-    private const string ChromeDefaultDirOption = "download.default_directory";
-    private const string FirefoxDefaultDirOption = "browser.download.dir";
-    public const string FolderForDownloadingFiles = "/Users/Robert_Haidul/Downloads/TempDir/";
+    public const string FolderForDownloadingFiles = "/Downloads/";
 
     private static ILog Log
     {
@@ -26,7 +24,9 @@ public class DriverFactory
             case BrowserType.CHROME:
             {
                 var options = new ChromeOptions();
-                options.AddUserProfilePreference(ChromeDefaultDirOption, @$"{FolderForDownloadingFiles}");
+                options.AddUserProfilePreference("download.default_directory", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
+                options.AddUserProfilePreference("download.prompt_for_download", false);
+                options.AddUserProfilePreference("directory_upgrade", true);
                 driver = new ChromeDriver(options);
                 driver.Manage().Window.Maximize();
                 break;
@@ -34,7 +34,8 @@ public class DriverFactory
             case BrowserType.FIREFOX:
             {
                 var options = new FirefoxOptions();
-                options.SetPreference(FirefoxDefaultDirOption, FolderForDownloadingFiles);
+                options.SetPreference("browser.download.dir", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
+                options.SetPreference("browser.download.folderList", 2);
                 driver = new FirefoxDriver(options);
                 driver.Manage().Window.Maximize();
                 break;
