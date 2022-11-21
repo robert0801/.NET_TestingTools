@@ -31,24 +31,39 @@ env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
 
 jobs:
-  build:
-
+  setup-env:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+
+      - name: Install Selenium Grid server
+        run: "java -jar selenium-server-4.6.0.jar standalone"
      
-    - name: "Setup Chrome"
-      if: ${{github.event.inputs.Browser == 'Chrome'}}
-      uses: browser-actions/setup-chrome@latest
+      - name: "Setup Chrome"
+        if: ${{github.event.inputs.Browser == 'Chrome'}}
+        uses: browser-actions/setup-chrome@latest
       
-    - name: "Setup Firefox"
-      if: ${{github.event.inputs.Browser == 'Firefox'}}
-      uses: browser-actions/setup-firefox@latest
+      - name: "Setup Firefox"
+        if: ${{github.event.inputs.Browser == 'Firefox'}}
+        uses: browser-actions/setup-firefox@latest
+
+
+  build:
+    needs: setup-env
+    runs-on: ubuntu-latest
+
+    steps:
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
@@ -69,7 +84,12 @@ jobs:
 
     - name: Run UI Tests
       run: dotnet test --filter TestCategory!="ApiTest"
-      
+
+
+  publish-result:
+    runs-on: ubuntu-latest
+
+    steps:
 
     - name: Publishing artifacts
       if: always()

@@ -30,8 +30,9 @@ public class DriverFactory
                 options.AddArgument("--no-sandbox");
                 options.AddArgument("--disable-dev-shm-usage");
                 options.AddArgument("--headless");
+                options.AddArgument("--window-size=1920,1080");
                 driver = new ChromeDriver(options);
-                driver.Manage().Window.Maximize();
+                // driver.Manage().Window.Maximize();
                 break;
             }
             case BrowserType.FIREFOX:
