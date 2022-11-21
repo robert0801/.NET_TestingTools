@@ -1,0 +1,108 @@
+17:09:50.733 INFO [LoggingOptions.configureLogEncoding] - Using the system default encoding
+17:09:50.737 INFO [OpenTelemetryTracer.createTracer] - Using OpenTelemetry for tracing
+17:09:51.221 INFO [NodeOptions.getSessionFactories] - Detected 8 available processors
+17:09:51.830 WARN [DriverService.findExecutable] - Unable to obtain driver using Selenium Manager: Error running command: [/var/folders/cs/g_rxyzc91nn8gscxcp21lh_m0000gp/T/selenium-manager884707985010049507451285548959424/selenium-manager, --driver, msedgedriver]
+Build info: version: '4.6.0', revision: '79f1c02ae20'
+System info: os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '13.0.1', java.version: '17.0.3.1'
+Driver info: driver.version: unknown
+17:09:51.853 INFO [NodeOptions.discoverDrivers] - Discovered 3 driver(s)
+17:09:51.871 INFO [NodeOptions.report] - Adding Firefox for {"browserName": "firefox"} 8 times
+17:09:51.872 INFO [NodeOptions.report] - Adding Safari for {"browserName": "safari"} 1 times
+17:09:51.872 INFO [NodeOptions.report] - Adding Chrome for {"browserName": "chrome"} 8 times
+17:09:51.893 INFO [Node.<init>] - Binding additional locator mechanisms: relative, id, name
+17:09:51.909 INFO [GridModel.setAvailability] - Switching Node 4c81ef39-5b3b-4920-9079-14aee4030780 (uri: http://192.168.100.3:4444) from DOWN to UP
+17:09:51.910 INFO [LocalDistributor.add] - Added node 4c81ef39-5b3b-4920-9079-14aee4030780 at http://192.168.100.3:4444. Health check every 120s
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.openqa.selenium.grid.Bootstrap.runMain(Bootstrap.java:77)
+	at org.openqa.selenium.grid.Bootstrap.main(Bootstrap.java:70)
+Caused by: org.openqa.selenium.netty.server.ServerBindException: Could not bind to address or port is already in use. Host 0.0.0.0, Port 4444
+	at org.openqa.selenium.netty.server.NettyServer.start(NettyServer.java:169)
+	at org.openqa.selenium.netty.server.NettyServer.start(NettyServer.java:54)
+	at org.openqa.selenium.grid.commands.Standalone.execute(Standalone.java:245)
+	at org.openqa.selenium.grid.TemplateGridCommand.lambda$configure$4(TemplateGridCommand.java:129)
+	at org.openqa.selenium.grid.Main.launch(Main.java:83)
+	at org.openqa.selenium.grid.Main.go(Main.java:57)
+	at org.openqa.selenium.grid.Main.main(Main.java:42)
+	... 6 more
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:141)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:562)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1334)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:600)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:579)
+	at io.netty.handler.logging.LoggingHandler.bind(LoggingHandler.java:230)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:602)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:579)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:973)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:260)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:356)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+17:10:59.302 INFO [LoggingOptions.configureLogEncoding] - Using the system default encoding
+17:10:59.307 INFO [OpenTelemetryTracer.createTracer] - Using OpenTelemetry for tracing
+17:10:59.796 INFO [NodeOptions.getSessionFactories] - Detected 8 available processors
+17:11:00.677 WARN [DriverService.findExecutable] - Unable to obtain driver using Selenium Manager: Error running command: [/var/folders/cs/g_rxyzc91nn8gscxcp21lh_m0000gp/T/selenium-manager885393724981558314192285142266112/selenium-manager, --driver, msedgedriver]
+Build info: version: '4.6.0', revision: '79f1c02ae20'
+System info: os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '13.0.1', java.version: '17.0.3.1'
+Driver info: driver.version: unknown
+17:11:00.700 INFO [NodeOptions.discoverDrivers] - Discovered 3 driver(s)
+17:11:00.717 INFO [NodeOptions.report] - Adding Firefox for {"browserName": "firefox"} 8 times
+17:11:00.718 INFO [NodeOptions.report] - Adding Safari for {"browserName": "safari"} 1 times
+17:11:00.718 INFO [NodeOptions.report] - Adding Chrome for {"browserName": "chrome"} 8 times
+17:11:00.737 INFO [Node.<init>] - Binding additional locator mechanisms: relative, id, name
+17:11:00.753 INFO [GridModel.setAvailability] - Switching Node 29ed2eae-734c-4dc9-b3d2-5fe0af9e26d2 (uri: http://192.168.100.3:4444) from DOWN to UP
+17:11:00.753 INFO [LocalDistributor.add] - Added node 29ed2eae-734c-4dc9-b3d2-5fe0af9e26d2 at http://192.168.100.3:4444. Health check every 120s
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.openqa.selenium.grid.Bootstrap.runMain(Bootstrap.java:77)
+	at org.openqa.selenium.grid.Bootstrap.main(Bootstrap.java:70)
+Caused by: org.openqa.selenium.netty.server.ServerBindException: Could not bind to address or port is already in use. Host 0.0.0.0, Port 4444
+	at org.openqa.selenium.netty.server.NettyServer.start(NettyServer.java:169)
+	at org.openqa.selenium.netty.server.NettyServer.start(NettyServer.java:54)
+	at org.openqa.selenium.grid.commands.Standalone.execute(Standalone.java:245)
+	at org.openqa.selenium.grid.TemplateGridCommand.lambda$configure$4(TemplateGridCommand.java:129)
+	at org.openqa.selenium.grid.Main.launch(Main.java:83)
+	at org.openqa.selenium.grid.Main.go(Main.java:57)
+	at org.openqa.selenium.grid.Main.main(Main.java:42)
+	... 6 more
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:141)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:562)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1334)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:600)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:579)
+	at io.netty.handler.logging.LoggingHandler.bind(LoggingHandler.java:230)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:602)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:579)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:973)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:260)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:356)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:833)
