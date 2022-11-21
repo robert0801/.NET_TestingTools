@@ -8,11 +8,6 @@ on:
     branches: [ "Github-Action-Temp" ]
   pull_request:
     branches: [ "Github-Action-Temp" ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
-    - '**.yaml'
-    - '**.yml'
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
