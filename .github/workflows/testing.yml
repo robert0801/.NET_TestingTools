@@ -4,14 +4,24 @@
 name: Automated-Testing-Framework
 
 on:  
+  workflow_dispatch:
+    inputs:
+      Browser:
+        description: "Please, specify browser type (Chrome or Firefox)"
+        required: true
+        default: "Chrome"
+      Timeout:
+        description: "Please, specify time for waiting Web-Elements"
+        required: true
+        default: "30"
   push:
     branches:
-#       - main
       - 'Github-Action-Temp'
   pull_request:
     branches:
-    #       - main
       - 'Github-Action-Temp'
+  schedule:
+      - cron: "0 0 * * *"
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
@@ -27,11 +37,21 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Google Chrome
+      uses: browser-actions/setup-chrome@latest
+
+    - name: Running Google Chrome
+      run: chrome --version
         
     - name: Restore dependencies
       run: dotnet restore
       
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+
+    - name: Run Api Tests
+      run: dotnet test --no-build --verbosity normal --filter TestCategory="ApiTest"
+
+    - name: Run UI Tests
+      run: dotnet test --no-build --verbosity normal --filter TestCategory!="ApiTest"
