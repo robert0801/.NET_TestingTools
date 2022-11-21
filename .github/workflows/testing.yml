@@ -51,7 +51,7 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Print variables
-      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ github.event.inputs.Browser }}, Timeout is ${{ github.event.inputs.Timeout }}'"
+      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ github.event.inputs.Browser }}, Timeout is ${{ github.event.inputs.Timeout }}"
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
