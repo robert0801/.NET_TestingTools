@@ -7,9 +7,11 @@ on:
   workflow_dispatch:
     inputs:
       Browser:
-        description: "Please, specify browser type (Chrome or Firefox)"
-        required: true
-        default: "Chrome"
+        type: choice
+        description: "Choose the browser type"
+        options:
+        - "Chrome"
+        - "Firefox"
       Timeout:
         description: "Please, specify time for waiting Web-Elements"
         required: true
@@ -53,7 +55,7 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Print variables
-      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ inputs.Browser }}, Timeout is ${{ inputs.Timeout }}"
+      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ github.event.inputs.Browser }}", Timeout is ${{ github.event.inputs.Timeout }}"
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
