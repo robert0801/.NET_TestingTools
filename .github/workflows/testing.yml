@@ -49,6 +49,8 @@ jobs:
 
       - name: Install Selenium Grid server
         run: "java -jar selenium-server-4.6.0.jar standalone"
+        with:
+          wait-interval: 20
      
       - name: "Setup Chrome"
         if: ${{github.event.inputs.Browser == 'Chrome'}}
