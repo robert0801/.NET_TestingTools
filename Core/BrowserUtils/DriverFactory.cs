@@ -29,6 +29,7 @@ public class DriverFactory
                 options.AddUserProfilePreference("directory_upgrade", true);
                 options.AddArgument("--no-sandbox");
                 options.AddArgument("--disable-dev-shm-usage");
+                options.AddArgument("--headless");
                 driver = new ChromeDriver(options);
                 driver.Manage().Window.Maximize();
                 break;
@@ -38,6 +39,7 @@ public class DriverFactory
                 var options = new FirefoxOptions();
                 options.SetPreference("browser.download.dir", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.SetPreference("browser.download.folderList", 2);
+                options.AddArgument("--headless");
                 driver = new FirefoxDriver(options);
                 driver.Manage().Window.Maximize();
                 break;

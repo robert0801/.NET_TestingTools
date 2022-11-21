@@ -9,7 +9,6 @@ on:
       Browser:
         type: choice
         description: "Choose the browser type"
-        required: true
         options:
         - "Chrome"
         - "Firefox"
@@ -42,18 +41,14 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Setup Google Chrome
+     
+    - name: "Setup Chrome"
+      if: ${{github.event.inputs.Browser == 'Chrome'}}
       uses: browser-actions/setup-chrome@latest
-
-    - name: Setup Firefox
-      uses: browser-actions/setup-firefox@latest
-        
-    - name: Restore dependencies
-      run: dotnet restore
       
-    - name: Build
-      run: dotnet build --no-restore
+    - name: "Setup Firefox"
+      if: ${{github.event.inputs.Browser == 'Firefox'}}
+      uses: browser-actions/setup-firefox@latest
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
@@ -70,7 +65,14 @@ jobs:
         value: '${{ github.event.inputs.Timeout }}'
 
     - name: Run Api Tests
-      run: dotnet test --no-build --verbosity normal --filter TestCategory="ApiTest"
+      run: dotnet test --filter TestCategory="ApiTest"
 
     - name: Run UI Tests
-      run: dotnet test --no-build --verbosity normal --filter TestCategory!="ApiTest
+      run: dotnet test --filter TestCategory!="ApiTest"
+      
+
+    - name: Publishing artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Failed test
+        path: ${{ github.workspace }}/Tests/bin/Debug/net7.0/**.Jpeg
