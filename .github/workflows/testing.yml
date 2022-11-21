@@ -20,8 +20,8 @@ on:
   pull_request:
     branches:
       - 'Github-Action-Temp'
-  schedule:
-      - cron: '0 0 0 * *'
+#   schedule:
+#       - cron: "0 0 0 * *"
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
