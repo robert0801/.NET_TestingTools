@@ -27,6 +27,8 @@ public class DriverFactory
                 options.AddUserProfilePreference("download.default_directory", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.AddUserProfilePreference("download.prompt_for_download", false);
                 options.AddUserProfilePreference("directory_upgrade", true);
+                options.AddArgument("--no-sandbox");
+                options.AddArgument("--disable-dev-shm-usage");
                 driver = new ChromeDriver(options);
                 driver.Manage().Window.Maximize();
                 break;
