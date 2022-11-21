@@ -17,11 +17,13 @@ on:
   push:
     branches:
       - 'Github-Action-Temp'
+      - 'main'
   pull_request:
     branches:
       - 'Github-Action-Temp'
+      - 'main'
   schedule:
-      - cron: '0 0 0 * *'
+    - cron: '0 0 * * *'
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
@@ -51,21 +53,21 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Print variables
-      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ github.event.inputs.Browser }}, Timeout is ${{ github.event.inputs.Timeout }}'"
+      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ inputs.Browser }}, Timeout is ${{ inputs.Timeout }}"
         
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
       with:
-        filename: './Configuration.json'
+        filename: '${{ github.workspace }}/Tests/Configuration.json'
         key: 'Browser'
-        value: '${{ github.event.inputs.Browser }}'
+        value: '${{ inputs.Browser }}'
         
     - name: Edit Timeout value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
       with:
-        filename: './Configuration.json'
+        filename: '${{ github.workspace }}/Tests/Configuration.json'
         key: 'Timeout'
-        value: '${{ github.event.inputs.Timeout }}'
+        value: '${{ inputs.Timeout }}'
 
     - name: Run Api Tests
       run: dotnet test --no-build --verbosity normal --filter TestCategory="ApiTest"

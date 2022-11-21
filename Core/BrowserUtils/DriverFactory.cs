@@ -29,7 +29,6 @@ public class DriverFactory
                 options.AddUserProfilePreference("directory_upgrade", true);
                 options.AddArgument("--no-sandbox");
                 options.AddArgument("--disable-dev-shm-usage");
-                options.AddArgument("--headless");
                 driver = new ChromeDriver(options);
                 driver.Manage().Window.Maximize();
                 break;
