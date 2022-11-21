@@ -17,9 +17,11 @@ on:
   push:
     branches:
       - 'Github-Action-Temp'
+      - 'main'
   pull_request:
     branches:
       - 'Github-Action-Temp'
+      - 'main'
   schedule:
     - cron: '0 0 * * *'
     
