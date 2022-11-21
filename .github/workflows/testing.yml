@@ -69,3 +69,10 @@ jobs:
 
     - name: Run UI Tests
       run: dotnet test --filter TestCategory!="ApiTest"
+      
+
+    - name: Publishing artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Failed test
+        path: ${{ github.workspace }}/Tests/bin/Debug/net7.0/**.Jpeg
