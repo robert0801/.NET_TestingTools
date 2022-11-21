@@ -68,10 +68,13 @@ jobs:
       run: dotnet test --filter TestCategory="ApiTest"
 
     - name: Run UI Tests
+      id: ui-tests
+      if: always()
       run: dotnet test --filter TestCategory!="ApiTest"
       
 
     - name: Publishing artifacts
+      if: job.steps.ui-tests.status == failure()
       uses: actions/upload-artifact@v2
       with:
         name: Failed test
