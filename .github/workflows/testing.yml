@@ -58,32 +58,34 @@ jobs:
         if: ${{github.event.inputs.Browser == 'Firefox'}}
         uses: browser-actions/setup-firefox@latest
 
+      - name: Edit Browser value in Configuration.json   
+        uses: MerthinTechnologies/edit-json-action@v1
+        with:
+          filename: '${{ github.workspace }}/Tests/Configuration.json'
+          key: 'Browser'
+          value: '${{ github.event.inputs.Browser }}'
+          
+      - name: Edit Timeout value in Configuration.json   
+        uses: MerthinTechnologies/edit-json-action@v1
+        with:
+          filename: '${{ github.workspace }}/Tests/Configuration.json'
+          key: 'Timeout'
+          value: '${{ github.event.inputs.Timeout }}'
 
-  build:
-    needs: setup-env
-    runs-on: ubuntu-latest
+      - name: Run Api Tests
+        run: dotnet test --filter TestCategory="ApiTest"
 
-    steps:
-        
-    - name: Edit Browser value in Configuration.json   
-      uses: MerthinTechnologies/edit-json-action@v1
-      with:
-        filename: '${{ github.workspace }}/Tests/Configuration.json'
-        key: 'Browser'
-        value: '${{ github.event.inputs.Browser }}'
-        
-    - name: Edit Timeout value in Configuration.json   
-      uses: MerthinTechnologies/edit-json-action@v1
-      with:
-        filename: '${{ github.workspace }}/Tests/Configuration.json'
-        key: 'Timeout'
-        value: '${{ github.event.inputs.Timeout }}'
+      - name: Run UI Tests
+        if: always()
+        run: dotnet test --filter TestCategory!="ApiTest"
 
-    - name: Run Api Tests
-      run: dotnet test --filter TestCategory="ApiTest"
+      - name: Publishing artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Failed test
+          path: ${{ github.workspace }}/Tests/bin/Debug/net7.0/**.Jpeg
 
-    - name: Run UI Tests
-      run: dotnet test --filter TestCategory!="ApiTest"
 
 
   publish-result:
