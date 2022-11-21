@@ -20,8 +20,8 @@ on:
   pull_request:
     branches:
       - 'Github-Action-Temp'
-#   schedule:
-#       - cron: "0 0 0 * *"
+  schedule:
+    - cron: '0 0 * * *'
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
@@ -56,14 +56,14 @@ jobs:
     - name: Edit Browser value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
       with:
-        filename: './Configuration.json'
+        filename: '${{ github.workspace }}/Configuration.json'
         key: 'Browser'
         value: '${{ github.event.inputs.Browser }}'
         
     - name: Edit Timeout value in Configuration.json   
       uses: MerthinTechnologies/edit-json-action@v1
       with:
-        filename: './Configuration.json'
+        filename: '${{ github.workspace }}/Configuration.json'
         key: 'Timeout'
         value: '${{ github.event.inputs.Timeout }}'
 
