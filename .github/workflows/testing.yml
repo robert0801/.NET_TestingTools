@@ -85,18 +85,3 @@ jobs:
         with:
           name: Failed test
           path: ${{ github.workspace }}/Tests/bin/Debug/net7.0/**.Jpeg
-
-
-
-  publish-result:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - name: Publishing artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: Failed test
-        path: ${{ github.workspace }}/Tests/bin/Debug/net7.0/**.Jpeg
