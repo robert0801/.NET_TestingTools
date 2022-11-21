@@ -1,16 +1,14 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: Automated-Testing-Framework
+name: Webdriver-Restsharp-Temp
 
 on:  
   push:
-    branches:
-#       - main
+    branches: 
       - 'Github-Action-Temp'
   pull_request:
     branches:
-    #       - main
       - 'Github-Action-Temp'
     
 env:
