@@ -21,7 +21,7 @@ on:
     branches:
       - 'Github-Action-Temp'
   schedule:
-      - cron: "0 0 * * *"
+      - cron: '0 0 0 * *'
     
 env:
   DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
@@ -49,6 +49,23 @@ jobs:
       
     - name: Build
       run: dotnet build --no-restore
+      
+    - name: Print variables
+      run:  echo "WORKSPACE is ${{ github.workspace }}, Browser is ${{ github.event.inputs.Browser }}, Timeout is ${{ github.event.inputs.Timeout }}'"
+        
+    - name: Edit Browser value in Configuration.json   
+      uses: MerthinTechnologies/edit-json-action@v1
+      with:
+        filename: './Configuration.json'
+        key: 'Browser'
+        value: '${{ github.event.inputs.Browser }}'
+        
+    - name: Edit Timeout value in Configuration.json   
+      uses: MerthinTechnologies/edit-json-action@v1
+      with:
+        filename: './Configuration.json'
+        key: 'Timeout'
+        value: '${{ github.event.inputs.Timeout }}'
 
     - name: Run Api Tests
       run: dotnet test --no-build --verbosity normal --filter TestCategory="ApiTest"
