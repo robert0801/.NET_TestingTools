@@ -89,6 +89,7 @@ jobs:
 
 
   publish-result:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
