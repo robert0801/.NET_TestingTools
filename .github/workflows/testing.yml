@@ -49,8 +49,9 @@ jobs:
 
       - name: Install Selenium Grid server
         run: "java -jar selenium-server-4.6.0.jar standalone"
+        uses: ifaxity/wait-on-action
         with:
-          wait-interval: 20
+          resource: http://localhost:4444
      
       - name: "Setup Chrome"
         if: ${{github.event.inputs.Browser == 'Chrome'}}
