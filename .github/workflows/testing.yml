@@ -103,11 +103,11 @@ jobs:
         run: dotnet test --filter TestCategory="ApiTest"
 
       - name: Run_UI_Tests
-        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }} 
+        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && ((steps.Run_Api_Tests.outcome=='failure') || (steps.Run_Api_Tests.outcome=='success')) }} 
         run: dotnet test --filter TestCategory!="ApiTest"
 
       - name: Publishing artifacts
-        if: always()
+        if: ${{ steps.Run_UI_Tests.outcome !='success' }}
         uses: actions/upload-artifact@v2
         with:
           name: Failed test

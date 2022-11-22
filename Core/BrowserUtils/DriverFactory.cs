@@ -42,9 +42,11 @@ public class DriverFactory
                 var options = new FirefoxOptions();
                 options.SetPreference("browser.download.dir", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.SetPreference("browser.download.folderList", 2);
+                options.AddArgument("--no-sandbox");
+                options.AddArgument("--disable-dev-shm-usage");
                 options.AddArgument("--width=2560");
                 options.AddArgument("--height=1600");
-                options.AddArgument("--headless");
+                // options.AddArgument("--headless");
                 driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
             }
