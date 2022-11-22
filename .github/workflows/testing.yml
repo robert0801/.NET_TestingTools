@@ -103,7 +103,7 @@ jobs:
         run: dotnet test --filter TestCategory="ApiTest"
 
       - name: Run_UI_Tests
-        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && ((steps.Run_Api_Tests.outcome=='failure') || (steps.Run_Api_Tests.outcome=='success')) }} 
+        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }} 
         run: dotnet test --filter TestCategory!="ApiTest"
 
       - name: Publishing artifacts
