@@ -7,16 +7,18 @@ on:
   workflow_dispatch:
     inputs:
       Run_API_Tests:
-        type: boolean
+        type: choice
         description: "Run API tests"
-        required: true
-        default: true
+        options:
+        - "true"
+        - "false"
 
       Run_UI_Tests:
-        type: boolean
+        type: choice
         description: "Run UI tests"
-        required: true
-        default: true
+        options:
+        - "true"
+        - "false"
 
       Browser:
         type: choice
@@ -57,7 +59,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Setup Java
-        if: ${{ github.event.inputs.Run_UI_Tests }}
+        if: ${{ github.event.inputs.Run_UI_Tests == true }}
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -104,7 +106,7 @@ jobs:
         run: dotnet test --filter TestCategory="ApiTest"
 
       - name: Run_UI_Tests
-        if: ${{ github.event.inputs.Run_UI_Tests }} 
+        if: ${{ github.event.inputs.Run_UI_Tests == true }} 
         run: dotnet test --filter TestCategory!="ApiTest"
 
       - name: Publishing artifacts
