@@ -75,11 +75,11 @@ jobs:
         run: "java -jar selenium-server-${{ env.SELENIUN_GRID_VERSION }}.jar node --port ${{ env.PORT_2 }} &"
      
       - name: "Setup Chrome"
-        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }} && ${{ github.event.inputs.Browser == 'Chrome' }} 
+        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
         uses: browser-actions/setup-chrome@latest
       
       - name: "Setup Firefox"
-        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }} && ${{ github.event.inputs.Browser == 'Firefox' }}
+        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
         uses: browser-actions/setup-firefox@latest
 
       - name: Edit Browser value in Configuration.json   
