@@ -28,10 +28,12 @@ on:
     - cron: '0 0 * * *'
     
 env:
-  DOTNET_VERSION: '7.0.100' # The .NET SDK version to use
+  DOTNET_VERSION: '7.0.100'
+  PORT_1: "5555"
+  PORT_2: "6666"
 
 jobs:
-  setup-env:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -44,18 +46,22 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Selenium Grid server
-        run: "java -jar selenium-server-4.6.0.jar standalone &"
+      - name: Start Selenium Hub
+        run: "java -jar selenium-server-4.6.0.jar hub &"
+
+      - name: Start Selenium Port {{ env.PORT_1 }}
+        run: "java -jar selenium-server-<version>.jar node --port {{ env.PORT_1 }} &"
+
+      - name: Start Selenium Port {{ env.PORT_2 }}
+        run: "java -jar selenium-server-<version>.jar node --port {{ env.PORT_2 }} &"
      
       - name: "Setup Chrome"
-        if: ${{github.event.inputs.Browser == 'Chrome'}}
         uses: browser-actions/setup-chrome@latest
       
       - name: "Setup Firefox"
-        if: ${{github.event.inputs.Browser == 'Firefox'}}
         uses: browser-actions/setup-firefox@latest
 
       - name: Edit Browser value in Configuration.json   

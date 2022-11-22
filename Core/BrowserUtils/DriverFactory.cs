@@ -3,11 +3,15 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Core.Enums;
 using log4net;
+using OpenQA.Selenium.Remote;
 
 namespace Core.BrowserUtils;
 
 public class DriverFactory
 {
+    private const string Localhost = "http://localhost:4444";
+    private const string Selenium_Grid_Port1 = "5555";
+    private const string Selenium_Grid_Port2 = "6666";
     public const string FolderForDownloadingFiles = "/Downloads/";
 
     private static ILog Log
@@ -27,12 +31,11 @@ public class DriverFactory
                 options.AddUserProfilePreference("download.default_directory", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.AddUserProfilePreference("download.prompt_for_download", false);
                 options.AddUserProfilePreference("directory_upgrade", true);
+                options.AddArgument($"port={Selenium_Grid_Port1}");
                 options.AddArgument("--no-sandbox");
                 options.AddArgument("--disable-dev-shm-usage");
-                options.AddArgument("--headless");
                 options.AddArgument("--window-size=1920,1080");
-                driver = new ChromeDriver(options);
-                // driver.Manage().Window.Maximize();
+                driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
             }
             case BrowserType.FIREFOX:
@@ -40,9 +43,9 @@ public class DriverFactory
                 var options = new FirefoxOptions();
                 options.SetPreference("browser.download.dir", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.SetPreference("browser.download.folderList", 2);
-                options.AddArgument("--headless");
-                driver = new FirefoxDriver(options);
-                driver.Manage().Window.Maximize();
+                options.AddArgument("--window-size=1920,1080");
+                options.AddArgument($"port={Selenium_Grid_Port2}");
+                driver = new RemoteWebDriver(new Uri("http://localhost:4444"), options);
                 break;
             }
             default:
