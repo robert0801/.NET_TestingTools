@@ -6,6 +6,18 @@ name: Automated-Testing-Framework
 on:  
   workflow_dispatch:
     inputs:
+      Run_API_Tests:
+        type: boolean
+        description: "Run API tests"
+        required: true
+        default: true
+
+      Run_UI_Tests:
+        type: boolean
+        description: "Run UI tests"
+        required: true
+        default: true
+
       Browser:
         type: choice
         description: "Choose the browser type"
@@ -45,49 +57,58 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Setup Java
+        if: ${{ github.event.inputs.Run_UI_Tests }}
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Start Selenium Hub
+        if: ${{ github.event.inputs.Run_UI_Tests }}
         run: "java -jar selenium-server-${{ env.SELENIUN_GRID_VERSION }}.jar hub &"
 
       - name: Start Selenium Port ${{ env.PORT_1 }}
+        if: ${{ github.event.inputs.Run_UI_Tests }}
         run: "java -jar selenium-server-${{ env.SELENIUN_GRID_VERSION }}.jar node --port ${{ env.PORT_1 }} &"
 
       - name: Start Selenium Port ${{ env.PORT_2 }}
+        if: ${{ github.event.inputs.Run_UI_Tests }}
         run: "java -jar selenium-server-${{ env.SELENIUN_GRID_VERSION }}.jar node --port ${{ env.PORT_2 }} &"
      
       - name: "Setup Chrome"
+        if: ${{ github.event.inputs.Run_UI_Tests }} && ({{ github.event.inputs.Browser }} == Chrome) 
         uses: browser-actions/setup-chrome@latest
       
       - name: "Setup Firefox"
+        if: ${{ github.event.inputs.Run_UI_Tests }} && ({{ github.event.inputs.Browser }} == Firefox) 
         uses: browser-actions/setup-firefox@latest
 
       - name: Edit Browser value in Configuration.json   
+        if: ${{ github.event.inputs.Run_UI_Tests }}
         uses: MerthinTechnologies/edit-json-action@v1
         with:
           filename: '${{ github.workspace }}/Tests/Configuration.json'
           key: 'Browser'
           value: '${{ github.event.inputs.Browser }}'
           
-      - name: Edit Timeout value in Configuration.json   
+      - name: Edit Timeout value in Configuration.json  
+        if: ${{ github.event.inputs.Run_UI_Tests }} 
         uses: MerthinTechnologies/edit-json-action@v1
         with:
           filename: '${{ github.workspace }}/Tests/Configuration.json'
           key: 'Timeout'
           value: '${{ github.event.inputs.Timeout }}'
 
-      - name: Run Api Tests
+      - name: Run_Api_Tests
+        if: ${{ github.event.inputs.Run_API_Tests }} 
         run: dotnet test --filter TestCategory="ApiTest"
 
-      - name: Run UI Tests
-        if: always()
+      - name: Run_UI_Tests
+        if: steps.Run_Api_Tests.outputs.status == 'failure' || steps.world.Run_Api_Tests.status == 'success'
         run: dotnet test --filter TestCategory!="ApiTest"
 
       - name: Publishing artifacts
-        if: always()
+        if: steps.Run_UI_Tests.outputs.status == 'failure'
         uses: actions/upload-artifact@v2
         with:
           name: Failed test
