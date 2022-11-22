@@ -14,7 +14,7 @@ public class DriverFactory
 
     private static ILog Log
     {
-        get { return LogManager.GetLogger("DriverFactory"); }
+        get => LogManager.GetLogger("DriverFactory");
     }
     private DriverFactory() {}
 

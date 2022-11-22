@@ -10,7 +10,7 @@ public class DriverHelper
     private static BrowserType browserType;
     private static ILog Log
     {
-        get { return LogManager.GetLogger("DriverHelper"); }
+        get => LogManager.GetLogger("DriverHelper");
     }
 
     private DriverHelper() {}

@@ -33,6 +33,6 @@ public abstract class BaseContext<T> where T : BasePage, new()
 
     protected ILog Log
     {
-        get { return LogManager.GetLogger(this.GetType()); }
+        get => LogManager.GetLogger(this.GetType());
     }
 }

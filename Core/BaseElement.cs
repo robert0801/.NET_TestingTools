@@ -13,7 +13,7 @@ public class BaseElement : IWebElement, IWrapsElement
     private int waitingTime;
     private static ILog Log
     {
-        get { return LogManager.GetLogger("BaseElement"); }
+        get => LogManager.GetLogger("BaseElement");
     }
 
     public BaseElement(By locator)

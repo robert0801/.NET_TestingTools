@@ -8,7 +8,7 @@ public class ConfigurationReader
     private static IConfigurationRoot? rootConfig;
     private static ILog Log
     {
-        get { return LogManager.GetLogger("AppConfigReader"); }
+        get => LogManager.GetLogger("AppConfigReader");
     }
 
     private ConfigurationReader() 
@@ -26,7 +26,12 @@ public class ConfigurationReader
         {
             new ConfigurationReader();
         }
-        return rootConfig;
+        if (null != rootConfig) return rootConfig;
+        else
+        {
+            Log.Error("It is impossible to inialize IConfigurationRoot");
+            throw new NullReferenceException();
+        }
     }
 
     private static string GetEnviromentVar(string key, string defaultValue)

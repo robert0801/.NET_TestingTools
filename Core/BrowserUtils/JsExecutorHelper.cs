@@ -11,7 +11,7 @@ public class JsExecutorHelper
 
     private static ILog Log
     {
-        get { return LogManager.GetLogger("JsExecutorHelper"); }
+        get => LogManager.GetLogger("JsExecutorHelper");
     }
 
     public static IJavaScriptExecutor GetJsExecutor()
