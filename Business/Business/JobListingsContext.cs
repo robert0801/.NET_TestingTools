@@ -10,7 +10,6 @@ public class JobListingsContext : BaseContext<JobListingsPage>
         Log.Info("Click to the last job possition on the JobListinings page.");
         ScrollToTheLastOptionInSearchResult();
         var lastWebElement = page.ViewAndApplyBtn.GetWebElements().Last();
-        ActionHelper.GetActions().MoveToElement(lastWebElement).Perform();
         lastWebElement.Click();
     }
 
@@ -21,13 +20,14 @@ public class JobListingsContext : BaseContext<JobListingsPage>
         while(true)
         {   
             try {
-                ActionHelper.GetActions().MoveToElement(page.FooterTitle).Build().Perform();
+                JsExecutorHelper.GetJsExecutor().ExecuteScript("arguments[0].scrollIntoView(true);", page.FooterTitle);
                 page.ViewMoreBtn.Click();
                 base.WaitTillPreloaderNotShown(10);
             }
             catch (Exception)
             {              
                 Log.Info("There is not exist additional 'More and view' button on the page.");
+                JsExecutorHelper.GetJsExecutor().ExecuteScript("window.scrollBy(0, -800);");
                 break;
             }
         }

@@ -12,7 +12,7 @@ namespace Tests.UiTests
         [Test]
         public void CheckThatFileHasCorrectName()
         {
-            string downloadFolder = DriverFactory.FolderForDownloadingFiles;
+            string downloadFolder = Directory.GetCurrentDirectory() + DriverFactory.FolderForDownloadingFiles;
             string expectedFileName = "EPAM_Systems_Company_Overview.pdf";
 
             startContext.ClickAboutButtonInTopBar();

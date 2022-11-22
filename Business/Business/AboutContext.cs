@@ -8,11 +8,11 @@ public class AboutContext : BaseContext<AboutPage>
     public void ScrollToFactsheetSection()
     {
         Log.Info("Scrolling to the factsheet section.");
-        ActionHelper.GetActions().MoveToElement(page.DownloadBtn).Perform();
+        JsExecutorHelper.GetJsExecutor().ExecuteScript("arguments[0].scrollIntoView(true); window.scrollBy(0, -60);", page.DownloadBtn);
     }
 
     public void ClickDownloadBtn()
     {
-        page.DownloadBtn.Click();
+        page.DownloadBtn.ClickUsingJs();
     }
 }
