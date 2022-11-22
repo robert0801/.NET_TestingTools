@@ -32,7 +32,7 @@ public class DriverFactory
                 options.AddArgument("--no-sandbox");
                 options.AddArgument("--disable-dev-shm-usage");
                 options.AddArgument("--window-size=2560,1600");
-                options.AddArgument("--headless");
+                // options.AddArgument("--headless");
                 driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
             }

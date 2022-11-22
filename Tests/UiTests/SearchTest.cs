@@ -21,7 +21,7 @@ namespace Tests.UiTests
             careerPage.ClickFindBtn();
             jobListingsPage.ClickToTheLastViewAndApplyBtn();
 
-            Assert.That(jobDescriptionPage.GetJobTitle(), Is.EqualTo(programmingLang), $"Opened vacancy doesn't contain information about {programmingLang}");
+            Assert.IsTrue(jobDescriptionPage.GetJobTitle().Contains(programmingLang), $"Opened vacancy doesn't contain information about {programmingLang}");
         }
 
         [TestCase("BLOCKCHAIN")]
