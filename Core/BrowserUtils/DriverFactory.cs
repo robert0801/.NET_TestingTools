@@ -31,7 +31,7 @@ public class DriverFactory
                 options.AddUserProfilePreference("directory_upgrade", true);
                 options.AddArgument("--no-sandbox");
                 options.AddArgument("--disable-dev-shm-usage");
-                options.AddArgument("--window-size=2560,1440");
+                options.AddArgument("--window-size=2560,1600");
                 options.AddArgument("--headless");
                 driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
@@ -43,7 +43,7 @@ public class DriverFactory
                 options.SetPreference("browser.download.dir", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.SetPreference("browser.download.folderList", 2);
                 options.AddArgument("--width=2560");
-                options.AddArgument("--height=1440");
+                options.AddArgument("--height=1600");
                 options.AddArgument("--headless");
                 driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;

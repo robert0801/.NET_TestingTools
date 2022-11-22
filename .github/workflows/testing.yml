@@ -30,7 +30,6 @@ on:
         - "Firefox"
       Timeout:
         description: "Please, specify time for waiting Web-Elements"
-        required: true
         default: "30"
   push:
     branches:
@@ -61,7 +60,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Setup Java
-        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }}
+        if: ${{ github.event.inputs.Run_UI_Tests }} != 'false' 
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
