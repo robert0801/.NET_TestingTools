@@ -3,11 +3,13 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Core.Enums;
 using log4net;
+using OpenQA.Selenium.Remote;
 
 namespace Core.BrowserUtils;
 
 public class DriverFactory
 {
+    private const string Localhost = "http://localhost:4444";
     public const string FolderForDownloadingFiles = "/Downloads/";
 
     private static ILog Log
@@ -27,17 +29,23 @@ public class DriverFactory
                 options.AddUserProfilePreference("download.default_directory", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.AddUserProfilePreference("download.prompt_for_download", false);
                 options.AddUserProfilePreference("directory_upgrade", true);
-                driver = new ChromeDriver(options);
-                driver.Manage().Window.Maximize();
+                options.AddArgument("--no-sandbox");
+                options.AddArgument("--disable-dev-shm-usage");
+                options.AddArgument("--window-size=2560,1600");
+                options.AddArgument("--headless");
+                driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
             }
+
             case BrowserType.FIREFOX:
             {
                 var options = new FirefoxOptions();
                 options.SetPreference("browser.download.dir", @$"{Directory.GetCurrentDirectory() + FolderForDownloadingFiles}");
                 options.SetPreference("browser.download.folderList", 2);
-                driver = new FirefoxDriver(options);
-                driver.Manage().Window.Maximize();
+                options.AddArgument("--width=2560");
+                options.AddArgument("--height=1600");
+                // options.AddArgument("--headless");
+                driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
             }
             default:
