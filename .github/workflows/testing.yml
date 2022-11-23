@@ -85,11 +85,11 @@ jobs:
 
       - name: "Kill all Chrome processes"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
-        run: "pkill -f chrome"
+        run: "kill -9 $(ps -x | grep chrome)"
 
       - name: "Kill all Firefox processes"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
-        run: "pkill -f firefox"
+        run: "kill -9 $(ps -x | grep firefox)"
 
       - name: Edit Browser value in Configuration.json   
         if: ${{ github.event.inputs.Run_UI_Tests == 'true' }}
