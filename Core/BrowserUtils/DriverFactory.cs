@@ -45,8 +45,8 @@ public class DriverFactory
                 options.AddArgument("--width=2560");
                 options.AddArgument("--height=1600");
                 options.AddArgument("--headless");
-                options.AddArgument("proxy-server='direct://'");
-                options.AddArgument("proxy-bypass-list=*");
+                options.AddArgument("--proxy-server='direct://'");
+                options.AddArgument("--proxy-bypass-list=*");
                 driver = new RemoteWebDriver(new Uri(Localhost), options);
                 break;
             }
