@@ -34,10 +34,11 @@ on:
   pull_request:
     branches:
       - 'Github-Action-Temp'
+      - 'Module6-CI/CD'
       - 'main'
   schedule:
     - cron: '0 0 * * *'
-    
+
 env:
   DOTNET_VERSION: '7.0.100'
   SELENIUN_GRID_VERSION: '4.6.0'
@@ -73,14 +74,22 @@ jobs:
       - name: Start Selenium Port ${{ env.PORT_2 }}
         if: ${{ github.event.inputs.Run_UI_Tests == 'true'}}
         run: "java -jar selenium-server-${{ env.SELENIUN_GRID_VERSION }}.jar node --port ${{ env.PORT_2 }} &"
-     
+
       - name: "Setup Chrome"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
         uses: browser-actions/setup-chrome@latest
-      
+
       - name: "Setup Firefox"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
         uses: browser-actions/setup-firefox@latest
+
+      - name: "Kill all Chrome processes"
+        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
+        run: "pkill -f chrome"
+
+      - name: "Kill all Firefox processes"
+        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
+        run: "pkill -f firefox"
 
       - name: Edit Browser value in Configuration.json   
         if: ${{ github.event.inputs.Run_UI_Tests == 'true' }}
@@ -89,7 +98,7 @@ jobs:
           filename: '${{ github.workspace }}/Tests/Configuration.json'
           key: 'Browser'
           value: '${{ github.event.inputs.Browser }}'
-          
+
       - name: Edit Timeout value in Configuration.json  
         if: ${{ github.event.inputs.Run_UI_Tests == 'true' }}
         uses: MerthinTechnologies/edit-json-action@v1
@@ -103,11 +112,11 @@ jobs:
         run: dotnet test --filter TestCategory="ApiTest"
 
       - name: Run_UI_Tests
-        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }} 
+        if: ${{ github.event.inputs.Run_UI_Tests == 'true' && (success() || failure())}} 
         run: dotnet test --filter TestCategory!="ApiTest"
 
       - name: Publishing artifacts
-        if: ${{ steps.Run_UI_Tests.outcome !='success' }}
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: Failed test
