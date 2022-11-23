@@ -82,14 +82,8 @@ jobs:
       - name: "Setup Firefox"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
         uses: browser-actions/setup-firefox@latest
-
-      - name: "Kill all Chrome processes"
-        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
-        run: "pkill -f chrome"
-
-      - name: "Kill all Firefox processes"
-        if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
-        run: "pkill -f firefox"
+        with:
+          firefox-version: '90.0'
 
       - name: Edit Browser value in Configuration.json   
         if: ${{ github.event.inputs.Run_UI_Tests == 'true' && (success() || failure())}}
