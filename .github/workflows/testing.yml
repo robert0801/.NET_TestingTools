@@ -33,8 +33,6 @@ on:
         default: "30"
   pull_request:
     branches:
-      - 'Github-Action-Temp'
-      - 'Module6-CI/CD'
       - 'main'
   schedule:
     - cron: '0 0 * * *'
