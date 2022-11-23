@@ -77,8 +77,6 @@ jobs:
       - name: "Setup Chrome"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
         uses: browser-actions/setup-chrome@latest
-        with:
-          firefox-version: '107.0'
       
       - name: "Setup Firefox"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
