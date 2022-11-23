@@ -85,14 +85,14 @@ jobs:
 
       - name: "Kill all Chrome processes"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Chrome') }}
-        run: "kill -9 $(ps -x | grep chrome)"
+        run: "pkill -f chrome"
 
       - name: "Kill all Firefox processes"
         if: ${{ (github.event.inputs.Run_UI_Tests == 'true') && (github.event.inputs.Browser == 'Firefox') }}
-        run: "kill -9 $(ps -x | grep firefox)"
+        run: "pkill -f firefox"
 
       - name: Edit Browser value in Configuration.json   
-        if: ${{ github.event.inputs.Run_UI_Tests == 'true' }}
+        if: ${{ github.event.inputs.Run_UI_Tests == 'true' && (success() || failure())}}
         uses: MerthinTechnologies/edit-json-action@v1
         with:
           filename: '${{ github.workspace }}/Tests/Configuration.json'
